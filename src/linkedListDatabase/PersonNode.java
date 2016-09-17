@@ -1,6 +1,7 @@
 package linkedListDatabase;
 
 /**
+ * TODO c
  * 
  * @author Joshua Sims
  *
@@ -18,7 +19,8 @@ public class PersonNode
     String ID;
     
     /**
-     * Employee name having the form "Last name, First name" (no space after the comma).
+     * Employee name having the form "Last name, First name" (no space after 
+     * the comma).
      */
     String name;
     
@@ -36,4 +38,12 @@ public class PersonNode
      * Years of service.
      */
     String years;
+    
+    /**
+     * TODO c
+     */
+    PersonNode()
+    {
+    	// TODO c
+    }
 }
