@@ -11,7 +11,7 @@ public class PersonNode
 	/**
 	 * The next person in the list.
 	 */
-	PersonNode next;
+	PersonNode next = null;
 	
     /**
      * Employee name having the form "Last name, First name" (no space after 
@@ -39,18 +39,46 @@ public class PersonNode
      */
     String years;
     
+//    /**
+//     * Classification(s). To be determined by the table(s) that this node
+//     * occupies.
+//     */
+//    String[] classifications = {"", ""};
+    
     /**
      * TODO c
      */
     PersonNode(String name, String id, String phone, String division, 
     	String years)
-    {
-    	next = null;
-    	
+    {	
     	this.name = name;
     	this.id = id;
     	this.phone = phone;
     	this.division = division;
     	this.years = years;
     }
+    
+//    String getClassifications()
+//    {
+//    	//
+//    	final int indexOfFirst = 0;
+//    	//
+//    	final int indexAfterFirst = 1;
+//    	
+//    	//
+//    	String classificationsString = classifications[indexOfFirst];
+//    	
+//    	//
+//    	if (classifications[indexAfterFirst] != "")
+//    	{
+//	    	for(int index = indexAfterFirst; index < classifications.length; 
+//	    		index++)
+//	    	{
+//	    		classificationsString = ", " + classifications[index];
+//	    	}
+//    	}
+//    	
+//    	//
+//    	return classificationsString;
+//    }
 }

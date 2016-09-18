@@ -16,31 +16,40 @@ public class MyDatabase
 	 */
 	static final int FACULTY_TABLE = 1;
 	
+//	/**
+//	 * 
+//	 */
+//	static final int FACULTY_CLASSIFICATION = 0;
+	
 	/**
 	 * 
 	 */
 	static final int ADMIN_TABLE = 2;
 	
-	// TODO perhaps the headPtrs should be private?
+//	/**
+//	 * 
+//	 */
+//	static final int ADMIN_CLASSIFICATION = 1;
+
 	/**
 	 * Points to front of administrative list.
 	 */
-	PersonNode adminHeadPtr;
+	private PersonNode adminHeadPtr;
 	
 	/**
 	 * Points to end of administrative list.
 	 */
-	PersonNode adminTailPtr;
+	private PersonNode adminTailPtr;
 	
 	/**
 	 * Points to front of faculty list.
 	 */
-	PersonNode facultyHeadPtr;
+	private PersonNode facultyHeadPtr;
 	
 	/**
 	 * Points to end of faculty list.
 	 */
-	PersonNode facultyTailPtr;
+	private PersonNode facultyTailPtr;
 	
 	/**
 	 * 
@@ -96,20 +105,25 @@ public class MyDatabase
 	 * @param division
 	 * @param years
 	 */
-	private void insert(int table, String id, String name, String phone, String division, 
-		String years)
+	private void insert(int table, String id, String name, String phone, 
+		String division, String years)
 	{
 		//
 		PersonNode newNode = new PersonNode(id, name, phone, division, years);
+		
+//		//
+//		final int offset = 1;
 		
 		//
 		switch (table)
 		{
 			case FACULTY_TABLE:
+//				newNode.classifications[table - offset] = "FAC";
 				newNode.next = facultyHeadPtr;
 				facultyHeadPtr = newNode;
 				break;
 			case ADMIN_TABLE:
+//				newNode.classifications[table - offset] = "ADM";
 				newNode.next = adminHeadPtr;
 				adminHeadPtr = newNode;
 				break;
@@ -197,16 +211,13 @@ public class MyDatabase
 	{
 		//
 		PersonNode headPtr = null;
-		String classification = null;
 		switch (table)
 		{
 			case FACULTY_TABLE:
 				headPtr = facultyHeadPtr;
-				classification = "FAC";
 				break;
 			case ADMIN_TABLE:
 				headPtr = adminHeadPtr;
-				classification = "ADM";
 				break;
 		}
 		
@@ -218,7 +229,7 @@ public class MyDatabase
 		{
 			System.out.println(currentNode.name + "    " + currentNode.id + 
 				"    " + currentNode.phone + "    " + currentNode.division + 
-				"    " + currentNode.years + "    " + classification);
+				"    " + currentNode.years + "    ");
 			
 			currentNode = currentNode.next;
 		}
