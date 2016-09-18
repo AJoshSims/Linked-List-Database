@@ -43,7 +43,7 @@ public class PersonNode
 //     * Classification(s). To be determined by the table(s) that this node
 //     * occupies.
 //     */
-//    String[] classifications = {"", ""};
+//    boolean[] classifications = {false, false};
     
     /**
      * TODO c
@@ -81,4 +81,15 @@ public class PersonNode
 //    	//
 //    	return classificationsString;
 //    }
+    
+    /**
+     * 
+     */
+    @Override 
+    public PersonNode clone()
+    {
+    	PersonNode clone = new PersonNode(name, id, phone, division, years);
+//    	clone.classifications = classifications;
+    	return clone;
+    }
 }
