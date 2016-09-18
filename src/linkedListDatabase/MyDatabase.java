@@ -139,6 +139,7 @@ public class MyDatabase
 		}
 	}
 	
+	// TODO Should nodes be inserted at end of list?
 	/**
 	 * 
 	 * @param table
@@ -507,25 +508,107 @@ public class MyDatabase
 		}
 	}
 //	
-//	/**
-//	 * 
-//	 * @param table
-//	 * @return
-//	 */
-//	public PersonNode[] getVeteran(int table)
-//	{
-//		
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param table
-//	 * @return
-//	 */
-//	public PersonNode[] getRookie(int table)
-//	{
-//		
-//	}
+	/**
+	 * 
+	 * @param table
+	 * @return
+	 */
+	public PersonNode[] getVeteran(int table)
+	{	
+		//
+		PersonNode[] veteranList = {null, null};
+		
+		PersonNode head = null;
+		switch (table)
+		{
+			case FACULTY_TABLE:
+				head = facultyHeadPtr;
+				break;
+			case ADMIN_TABLE:
+				head = adminHeadPtr;
+				break;
+		}	
+		
+		//
+		veteranList[HEAD] = head.clone();
+		veteranList[TAIL] = veteranList[HEAD];
+		int mostYears = Integer.parseInt(veteranList[HEAD].years);
+		PersonNode currentNode = head.next;
+		int years = 0;
+		while (currentNode != null)
+		{
+			years = Integer.parseInt(currentNode.years);
+			//
+			if (years > mostYears)
+			{
+				veteranList[HEAD] = currentNode.clone();
+				veteranList[TAIL] = veteranList[HEAD];
+				mostYears = years;
+			}
+			//
+			else if(years == mostYears)
+			{
+				veteranList[TAIL].next = currentNode.clone();
+				veteranList[TAIL] = currentNode.clone();
+			}
+			
+			currentNode = currentNode.next;
+		}
+		
+		//
+		return veteranList;
+	}
+	
+	/**
+	 * 
+	 * @param table
+	 * @return
+	 */
+	public PersonNode[] getRookie(int table)
+	{
+		//
+		PersonNode[] rookieList = {null, null};
+		
+		PersonNode head = null;
+		switch (table)
+		{
+			case FACULTY_TABLE:
+				head = facultyHeadPtr;
+				break;
+			case ADMIN_TABLE:
+				head = adminHeadPtr;
+				break;
+		}	
+		
+		//
+		rookieList[HEAD] = head.clone();
+		rookieList[TAIL] = rookieList[HEAD];
+		int leastYears = Integer.parseInt(rookieList[HEAD].years);
+		PersonNode currentNode = head.next;
+		int years = 0;
+		while (currentNode != null)
+		{
+			years = Integer.parseInt(currentNode.years);
+			//
+			if (years < leastYears)
+			{
+				rookieList[HEAD] = currentNode.clone();
+				rookieList[TAIL] = rookieList[HEAD];
+				leastYears = years;
+			}
+			//
+			else if(years == leastYears)
+			{
+				rookieList[TAIL].next = currentNode.clone();
+				rookieList[TAIL] = currentNode.clone();
+			}
+			
+			currentNode = currentNode.next;
+		}
+		
+		//
+		return rookieList;
+	}
 	
 	/**
 	 * 

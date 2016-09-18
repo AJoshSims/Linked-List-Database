@@ -80,6 +80,54 @@ public class DbDriver
 		System.out.println("");
 		//////////////////////////////////////////
 		
+		// getVeteran
+		//////////////////////////////////////////
+		System.out.println("TESTING GETVETERAN...");
+		
+		PersonNode[] veteranList = database.getVeteran(MyDatabase.FACULTY_TABLE);
+		
+		System.out.println("head is " + veteranList[MyDatabase.HEAD].name);
+		System.out.println("tail is " + veteranList[MyDatabase.TAIL].name);
+		
+		System.out.println("entire veteran list is...");
+		PersonNode currentVeteranListNode = veteranList[MyDatabase.HEAD];
+		while (currentVeteranListNode != null)
+		{
+			System.out.println(currentVeteranListNode.name + "    " + currentVeteranListNode.id + 
+				"    " + currentVeteranListNode.phone + "    " + currentVeteranListNode.division + 
+				"    " + currentVeteranListNode.years + "    " + 
+				database.getClassifications(currentVeteranListNode));
+			
+			currentVeteranListNode = currentVeteranListNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+		
+		// getRookie
+		//////////////////////////////////////////
+		System.out.println("TESTING GETROOKIE...");
+		
+		PersonNode[] rookieList = database.getRookie(MyDatabase.ADMIN_TABLE);
+		
+		System.out.println("head is " + rookieList[MyDatabase.HEAD].name);
+		System.out.println("tail is " + rookieList[MyDatabase.TAIL].name);
+		
+		System.out.println("entire rookie list is...");
+		PersonNode currentRookieListNode = rookieList[MyDatabase.HEAD];
+		while (currentRookieListNode != null)
+		{
+			System.out.println(currentRookieListNode.name + "    " + currentRookieListNode.id + 
+				"    " + currentRookieListNode.phone + "    " + currentRookieListNode.division + 
+				"    " + currentRookieListNode.years + "    " + 
+				database.getClassifications(currentRookieListNode));
+			
+			currentRookieListNode = currentRookieListNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+		
 		// remove
 		//////////////////////////////////////////
 		System.out.println("TESTING REMOVE...");
@@ -112,21 +160,22 @@ public class DbDriver
 		// select
 		//////////////////////////////////////////
 		System.out.println("TESTING SELECT...");
-		PersonNode[] selected = database.select(MyDatabase.FACULTY_TABLE, "years", "23");
 		
-		System.out.println("head is " + selected[MyDatabase.HEAD].name);
-		System.out.println("tail is " + selected[MyDatabase.TAIL].name);
+		PersonNode[] selectedList = database.select(MyDatabase.FACULTY_TABLE, "years", "23");
+		
+		System.out.println("head is " + selectedList[MyDatabase.HEAD].name);
+		System.out.println("tail is " + selectedList[MyDatabase.TAIL].name);
 		
 		System.out.println("entire selected list is...");
-		PersonNode currentNode = selected[MyDatabase.HEAD];
-		while (currentNode != null)
+		PersonNode currentSelectedListNode = selectedList[MyDatabase.HEAD];
+		while (currentSelectedListNode != null)
 		{
-			System.out.println(currentNode.name + "    " + currentNode.id + 
-				"    " + currentNode.phone + "    " + currentNode.division + 
-				"    " + currentNode.years + "    " + 
-				database.getClassifications(currentNode));
+			System.out.println(currentSelectedListNode.name + "    " + currentSelectedListNode.id + 
+				"    " + currentSelectedListNode.phone + "    " + currentSelectedListNode.division + 
+				"    " + currentSelectedListNode.years + "    " + 
+				database.getClassifications(currentSelectedListNode));
 			
-			currentNode = currentNode.next;
+			currentSelectedListNode = currentSelectedListNode.next;
 		}
 		//////////////////////////////////////////
 	}
