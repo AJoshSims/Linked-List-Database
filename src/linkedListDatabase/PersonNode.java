@@ -13,16 +13,16 @@ public class PersonNode
 	 */
 	PersonNode next;
 	
-	/**
-	 * Six digit employee ID number.
-	 */
-    String ID;
-    
     /**
      * Employee name having the form "Last name, First name" (no space after 
      * the comma).
      */
     String name;
+	
+	/**
+	 * Six digit employee ID number.
+	 */
+    String id;
     
     /**
      * Ten digit phone number.
@@ -42,8 +42,15 @@ public class PersonNode
     /**
      * TODO c
      */
-    PersonNode()
+    PersonNode(String name, String id, String phone, String division, 
+    	String years)
     {
-    	// TODO c
+    	next = null;
+    	
+    	this.name = name;
+    	this.id = id;
+    	this.phone = phone;
+    	this.division = division;
+    	this.years = years;
     }
 }

@@ -7,17 +7,7 @@ package linkedListDatabase;
  *
  */
 public class DbDriver 
-{
-	/**
-	 * 
-	 */
-	private static final int FACULTY_TABLE = 1;
-	
-	/**
-	 * 
-	 */
-	private static final int ADMIN_TABLE = 2;
-	
+{	
 	/**
 	 * 
 	 */
@@ -65,6 +55,10 @@ public class DbDriver
 	 */
 	public static void main(String[] args)
 	{
+		MyDatabase database = new MyDatabase();
 		
+		// TODO testing
+		database.printList(MyDatabase.FACULTY_TABLE);
+		database.printList(MyDatabase.ADMIN_TABLE);
 	}
 }
