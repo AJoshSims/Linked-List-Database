@@ -31,15 +31,16 @@ public class MyDatabase
 //	 */
 //	static final int ADMIN_CLASSIFICATION = 1;
 
+	// TODO make sure these are private
 	/**
 	 * Points to front of administrative list.
 	 */
-	private PersonNode adminHeadPtr;
+	PersonNode adminHeadPtr;
 	
 	/**
 	 * Points to end of administrative list.
 	 */
-	private PersonNode adminTailPtr;
+	PersonNode adminTailPtr;
 	
 	/**
 	 * Points to front of faculty list.
@@ -85,6 +86,24 @@ public class MyDatabase
 		catch (FileNotFoundException e)
 		{
 			
+		}
+		
+		//
+		if (fileInput.hasNext())
+		{
+			insert(table, fileInput.next(), fileInput.next(), fileInput.next(), 
+				fileInput.next(), fileInput.next());
+			
+			//
+			switch (table)
+			{
+				case FACULTY_TABLE:
+					facultyTailPtr = facultyHeadPtr;
+					break;
+				case ADMIN_TABLE:
+					adminTailPtr = adminHeadPtr;
+					break;
+			}
 		}
 		
 		// TODO optimize?
@@ -173,15 +192,68 @@ public class MyDatabase
 //		
 //	}
 //	
-//	/**
-//	 * 
-//	 * @param table
-//	 * @param id
-//	 */
-//	public remove(int table, String id)
-//	{
-//		
-//	}
+	/**
+	 * 
+	 * @param table
+	 * @param id
+	 */
+	public void remove(int table, String id)
+	{
+		// TODO optimize?
+		//
+		PersonNode head = null;
+		switch (table)
+		{
+			//
+			case FACULTY_TABLE:
+				if (facultyHeadPtr.id.equals(id))
+				{
+					facultyHeadPtr = facultyHeadPtr.next;
+					return;
+				}
+				
+				head = facultyHeadPtr;
+				break;
+			//
+			case ADMIN_TABLE:
+				if (adminHeadPtr.id.equals(id))
+				{
+					adminHeadPtr = adminHeadPtr.next;
+					return;
+				}
+				
+				head = adminHeadPtr;
+				break;
+		}
+		
+		//
+		PersonNode currentNode = head;
+		while (currentNode.next != null)
+		{
+			if (currentNode.next.id.equals(id))	
+			{
+				//
+				if (currentNode.next.next == null)
+				{
+					switch (table)
+					{
+						case FACULTY_TABLE:
+							facultyTailPtr = currentNode;
+							break;
+						case ADMIN_TABLE:
+							adminTailPtr = currentNode;
+							break;
+					}
+				}
+					
+				currentNode.next = currentNode.next.next;
+				return;
+			}
+			
+			//
+			currentNode = currentNode.next;
+		}
+	}
 //	
 //	/**
 //	 * 

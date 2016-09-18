@@ -59,6 +59,21 @@ public class DbDriver
 		
 		// TODO testing
 		database.printList(MyDatabase.FACULTY_TABLE);
+		System.out.println("");
+		database.printList(MyDatabase.ADMIN_TABLE);
+		
+		System.out.println("");
+		
+		System.out.println("head is " + database.adminHeadPtr.name);
+		System.out.println("tail is " + database.adminTailPtr.name);
+		
+		database.remove(MyDatabase.ADMIN_TABLE, "482163");
+		
+		System.out.println("new head is " + database.adminHeadPtr.name);
+		System.out.println("new tail is " + database.adminTailPtr.name);
+		
+		System.out.println("");
+	
 		database.printList(MyDatabase.ADMIN_TABLE);
 	}
 }
