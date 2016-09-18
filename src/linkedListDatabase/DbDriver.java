@@ -65,16 +65,6 @@ public class DbDriver
 	 */
 	public static void main(String[] args)
 	{
-		MyDatabase database = new MyDatabase();
 		
-		database.populateList("admin.txt", database.adminHeadPtr);
-		
-		if (database.adminHeadPtr == null)
-		{
-			System.out.println("I dont understand");
-		}
-		
-		//TODO magic num
-		database.printList(ADMIN_TABLE);
 	}
 }
