@@ -39,12 +39,6 @@ public class PersonNode
      */
     String years;
     
-//    /**
-//     * Classification(s). To be determined by the table(s) that this node
-//     * occupies.
-//     */
-//    boolean[] classifications = {false, false};
-    
     /**
      * TODO c
      */
@@ -58,38 +52,12 @@ public class PersonNode
     	this.years = years;
     }
     
-//    String getClassifications()
-//    {
-//    	//
-//    	final int indexOfFirst = 0;
-//    	//
-//    	final int indexAfterFirst = 1;
-//    	
-//    	//
-//    	String classificationsString = classifications[indexOfFirst];
-//    	
-//    	//
-//    	if (classifications[indexAfterFirst] != "")
-//    	{
-//	    	for(int index = indexAfterFirst; index < classifications.length; 
-//	    		index++)
-//	    	{
-//	    		classificationsString = ", " + classifications[index];
-//	    	}
-//    	}
-//    	
-//    	//
-//    	return classificationsString;
-//    }
-    
     /**
      * 
      */
     @Override 
     public PersonNode clone()
     {
-    	PersonNode clone = new PersonNode(name, id, phone, division, years);
-//    	clone.classifications = classifications;
-    	return clone;
+    	return new PersonNode(name, id, phone, division, years);
     }
 }

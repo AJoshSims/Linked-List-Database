@@ -75,7 +75,7 @@ public class DbDriver
 		System.out.println("TESTING CLASSIFICATION...");
 		
 		System.out.println(database.adminHeadPtr.name + " belongs to " + 
-			database.getClassifications(database.adminHeadPtr) + " table(s).");
+			database.getClassificationString(database.adminHeadPtr) + " table(s).");
 		
 		System.out.println("");
 		//////////////////////////////////////////
@@ -84,21 +84,21 @@ public class DbDriver
 		//////////////////////////////////////////
 		System.out.println("TESTING GETVETERAN...");
 		
-		PersonNode[] veteranList = database.getVeteran(MyDatabase.FACULTY_TABLE);
+		PersonNode[] veterans = database.getVeteran(MyDatabase.FACULTY_TABLE);
 		
-		System.out.println("head is " + veteranList[MyDatabase.HEAD].name);
-		System.out.println("tail is " + veteranList[MyDatabase.TAIL].name);
+		System.out.println("head is " + veterans[MyDatabase.HEAD].name);
+		System.out.println("tail is " + veterans[MyDatabase.TAIL].name);
 		
 		System.out.println("entire veteran list is...");
-		PersonNode currentVeteranListNode = veteranList[MyDatabase.HEAD];
-		while (currentVeteranListNode != null)
+		PersonNode currentVeteranNode = veterans[MyDatabase.HEAD];
+		while (currentVeteranNode != null)
 		{
-			System.out.println(currentVeteranListNode.name + "    " + currentVeteranListNode.id + 
-				"    " + currentVeteranListNode.phone + "    " + currentVeteranListNode.division + 
-				"    " + currentVeteranListNode.years + "    " + 
-				database.getClassifications(currentVeteranListNode));
+			System.out.println(currentVeteranNode.name + "    " + currentVeteranNode.id + 
+				"    " + currentVeteranNode.phone + "    " + currentVeteranNode.division + 
+				"    " + currentVeteranNode.years + "    " + 
+				database.getClassificationString(currentVeteranNode));
 			
-			currentVeteranListNode = currentVeteranListNode.next;
+			currentVeteranNode = currentVeteranNode.next;
 		}
 		
 		System.out.println("");
@@ -108,21 +108,69 @@ public class DbDriver
 		//////////////////////////////////////////
 		System.out.println("TESTING GETROOKIE...");
 		
-		PersonNode[] rookieList = database.getRookie(MyDatabase.ADMIN_TABLE);
+		PersonNode[] rookies = database.getRookie(MyDatabase.ADMIN_TABLE);
 		
-		System.out.println("head is " + rookieList[MyDatabase.HEAD].name);
-		System.out.println("tail is " + rookieList[MyDatabase.TAIL].name);
+		System.out.println("head is " + rookies[MyDatabase.HEAD].name);
+		System.out.println("tail is " + rookies[MyDatabase.TAIL].name);
 		
 		System.out.println("entire rookie list is...");
-		PersonNode currentRookieListNode = rookieList[MyDatabase.HEAD];
-		while (currentRookieListNode != null)
+		PersonNode currentRookieNode = rookies[MyDatabase.HEAD];
+		while (currentRookieNode != null)
 		{
-			System.out.println(currentRookieListNode.name + "    " + currentRookieListNode.id + 
-				"    " + currentRookieListNode.phone + "    " + currentRookieListNode.division + 
-				"    " + currentRookieListNode.years + "    " + 
-				database.getClassifications(currentRookieListNode));
+			System.out.println(currentRookieNode.name + "    " + currentRookieNode.id + 
+				"    " + currentRookieNode.phone + "    " + currentRookieNode.division + 
+				"    " + currentRookieNode.years + "    " + 
+				database.getClassificationString(currentRookieNode));
 			
-			currentRookieListNode = currentRookieListNode.next;
+			currentRookieNode = currentRookieNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+		
+		// select
+		//////////////////////////////////////////
+		System.out.println("TESTING SELECT...");
+		
+		PersonNode[] selected = database.select(MyDatabase.FACULTY_TABLE, "years", "23");
+		
+		System.out.println("head is " + selected[MyDatabase.HEAD].name);
+		System.out.println("tail is " + selected[MyDatabase.TAIL].name);
+		
+		System.out.println("entire selected list is...");
+		PersonNode currentSelectedNode = selected[MyDatabase.HEAD];
+		while (currentSelectedNode != null)
+		{
+			System.out.println(currentSelectedNode.name + "    " + currentSelectedNode.id + 
+				"    " + currentSelectedNode.phone + "    " + currentSelectedNode.division + 
+				"    " + currentSelectedNode.years + "    " + 
+				database.getClassificationString(currentSelectedNode));
+			
+			currentSelectedNode = currentSelectedNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+
+		// intersect
+		//////////////////////////////////////////
+		System.out.println("TESTING INTERSECT...");
+		
+		PersonNode[] intersection = database.intersect("years", "23");
+		
+		System.out.println("head is " + intersection[MyDatabase.HEAD].name);
+		System.out.println("tail is " + intersection[MyDatabase.TAIL].name);
+		
+		System.out.println("entire Intersection list is...");
+		PersonNode currentIntersectionNode = intersection[MyDatabase.HEAD];
+		while (currentIntersectionNode != null)
+		{
+			System.out.println(currentIntersectionNode.name + "    " + currentIntersectionNode.id + 
+				"    " + currentIntersectionNode.phone + "    " + currentIntersectionNode.division + 
+				"    " + currentIntersectionNode.years + "    " + 
+				database.getClassificationString(currentIntersectionNode));
+			
+			currentIntersectionNode = currentIntersectionNode.next;
 		}
 		
 		System.out.println("");
@@ -152,31 +200,9 @@ public class DbDriver
 		System.out.println("TESTING CLASSIFICATION...");
 		
 		System.out.println(database.facultyHeadPtr.name + " belongs to " + 
-			database.getClassifications(database.facultyHeadPtr) + " table(s).");
+			database.getClassificationString(database.facultyHeadPtr) + " table(s).");
 		
 		System.out.println("");
-		//////////////////////////////////////////
-		
-		// select
-		//////////////////////////////////////////
-		System.out.println("TESTING SELECT...");
-		
-		PersonNode[] selectedList = database.select(MyDatabase.FACULTY_TABLE, "years", "23");
-		
-		System.out.println("head is " + selectedList[MyDatabase.HEAD].name);
-		System.out.println("tail is " + selectedList[MyDatabase.TAIL].name);
-		
-		System.out.println("entire selected list is...");
-		PersonNode currentSelectedListNode = selectedList[MyDatabase.HEAD];
-		while (currentSelectedListNode != null)
-		{
-			System.out.println(currentSelectedListNode.name + "    " + currentSelectedListNode.id + 
-				"    " + currentSelectedListNode.phone + "    " + currentSelectedListNode.division + 
-				"    " + currentSelectedListNode.years + "    " + 
-				database.getClassifications(currentSelectedListNode));
-			
-			currentSelectedListNode = currentSelectedListNode.next;
-		}
 		//////////////////////////////////////////
 	}
 }

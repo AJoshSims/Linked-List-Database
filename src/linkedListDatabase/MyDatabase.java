@@ -212,7 +212,7 @@ public class MyDatabase
 	PersonNode[] select(int table, String attribute, String value)
 	{
 		//
-		PersonNode[] selectedList = {null, null};
+		PersonNode[] selected = {null, null};
 		
 		//
 		PersonNode head = null;
@@ -228,7 +228,7 @@ public class MyDatabase
 		
 		//
 		PersonNode currentNode = head;
-		PersonNode currentSelectedListNode = null;
+		PersonNode currentSelectedNode = null;
 		// TODO include classification as attribute?
 		// TODO optimize? (reflection)
 		// TODO modularize
@@ -237,174 +237,174 @@ public class MyDatabase
 		{
 			case "name":
 				//
-				if (currentNode.name.equals(value))
+				while (currentNode != null)
 				{
-					currentSelectedListNode = currentNode.clone();
-					selectedList[HEAD] = currentSelectedListNode;
-					currentSelectedListNode = currentSelectedListNode.next;
-				}
-				
-				//
-				while (currentNode.next != null)
-				{
-					if (currentNode.next.name.equals(value))
+					if (currentNode.name.equals(value))
 					{
-						currentSelectedListNode = currentNode.next.clone();
-						if (selectedList[HEAD] == null)
+						//
+						if (selected[HEAD] == null)
 						{
-							selectedList[HEAD] = currentSelectedListNode;
+							selected[HEAD] = currentNode.clone();
+							selected[TAIL] = selected[HEAD];
 						}
-						if (currentNode.next.next == null)
+						//
+						else
 						{
-							selectedList[TAIL] = currentSelectedListNode;
-							return selectedList;
+							selected[TAIL].next = currentNode.clone();
+							selected[TAIL] = selected[TAIL].next;					
 						}
-						currentSelectedListNode = currentSelectedListNode.next;
 					}
 					
-					//
 					currentNode = currentNode.next;
 				}
 				break;
 			case "id":
 			case "ID":
 				//
-				if (currentNode.id.equals(value))
+				while (currentNode != null)
 				{
-					currentSelectedListNode = currentNode.clone();
-					selectedList[HEAD] = currentSelectedListNode;
-					currentSelectedListNode = currentSelectedListNode.next;
-				}
-				
-				//
-				while (currentNode.next != null)
-				{
-					if (currentNode.next.id.equals(value))
+					if (currentNode.id.equals(value))
 					{
-						currentSelectedListNode = currentNode.next.clone();
-						if (selectedList[HEAD] == null)
+						//
+						if (selected[HEAD] == null)
 						{
-							selectedList[HEAD] = currentSelectedListNode;
+							selected[HEAD] = currentNode.clone();
+							selected[TAIL] = selected[HEAD];
 						}
-						if (currentNode.next.next == null)
+						//
+						else
 						{
-							selectedList[TAIL] = currentSelectedListNode;
-							return selectedList;
+							selected[TAIL].next = currentNode.clone();
+							selected[TAIL] = selected[TAIL].next;					
 						}
-						currentSelectedListNode = currentSelectedListNode.next;
 					}
 					
-					//
 					currentNode = currentNode.next;
 				}
 				break;
 			case "phone":
 				//
-				if (currentNode.phone.equals(value))
+				while (currentNode != null)
 				{
-					currentSelectedListNode = currentNode.clone();
-					selectedList[HEAD] = currentSelectedListNode;
-					currentSelectedListNode = currentSelectedListNode.next;
-				}
-				
-				//
-				while (currentNode.next != null)
-				{
-					if (currentNode.next.phone.equals(value))
+					if (currentNode.phone.equals(value))
 					{
-						currentSelectedListNode = currentNode.next.clone();
-						if (selectedList[HEAD] == null)
+						//
+						if (selected[HEAD] == null)
 						{
-							selectedList[HEAD] = currentSelectedListNode;
+							selected[HEAD] = currentNode.clone();
+							selected[TAIL] = selected[HEAD];
 						}
-						if (currentNode.next.next == null)
+						//
+						else
 						{
-							selectedList[TAIL] = currentSelectedListNode;
-							return selectedList;
+							selected[TAIL].next = currentNode.clone();
+							selected[TAIL] = selected[TAIL].next;					
 						}
-						currentSelectedListNode = currentSelectedListNode.next;
 					}
 					
-					//
 					currentNode = currentNode.next;
 				}
 				break;
 			case "division":
 				//
-				if (currentNode.division.equals(value))
+				while (currentNode != null)
 				{
-					currentSelectedListNode = currentNode.clone();
-					selectedList[HEAD] = currentSelectedListNode;
-					currentSelectedListNode = currentSelectedListNode.next;
-				}
-				
-				//
-				while (currentNode.next != null)
-				{
-					if (currentNode.next.division.equals(value))
+					if (currentNode.division.equals(value))
 					{
-						currentSelectedListNode = currentNode.next.clone();
-						if (selectedList[HEAD] == null)
+						//
+						if (selected[HEAD] == null)
 						{
-							selectedList[HEAD] = currentSelectedListNode;
+							selected[HEAD] = currentNode.clone();
+							selected[TAIL] = selected[HEAD];
 						}
-						if (currentNode.next.next == null)
+						//
+						else
 						{
-							selectedList[TAIL] = currentSelectedListNode;
-							return selectedList;
+							selected[TAIL].next = currentNode.clone();
+							selected[TAIL] = selected[TAIL].next;					
 						}
-						currentSelectedListNode = currentSelectedListNode.next;
 					}
 					
-					//
 					currentNode = currentNode.next;
 				}
 				break;
 			case "years":
 				//
-				if (currentNode.years.equals(value))
+				while (currentNode != null)
 				{
-					currentSelectedListNode = currentNode.clone();
-					selectedList[HEAD] = currentSelectedListNode;
-				}
-				
-				//
-				while (currentNode.next != null)
-				{
-					if (currentNode.next.years.equals(value))
+					if (currentNode.years.equals(value))
 					{
-						currentSelectedListNode.next = currentNode.next.clone();
-						currentSelectedListNode = currentSelectedListNode.next;
-						if (selectedList[HEAD] == null)
+						//
+						if (selected[HEAD] == null)
 						{
-							selectedList[HEAD] = currentSelectedListNode;
+							selected[HEAD] = currentNode.clone();
+							selected[TAIL] = selected[HEAD];
 						}
-						if (currentNode.next.next == null)
+						//
+						else
 						{
-							selectedList[TAIL] = currentSelectedListNode;
-							return selectedList;
+							selected[TAIL].next = currentNode.clone();
+							selected[TAIL] = selected[TAIL].next;					
 						}
 					}
 					
-					//
 					currentNode = currentNode.next;
 				}
 				break;
 		}
 		
-		return selectedList;
+		return selected;
 	}
 //	
-//	/**
-//	 * 
-//	 * @param attribute
-//	 * @param value
-//	 * @return
-//	 */
-//	public PersonNode[] intersect(String attribute, String value)
-//	{
-//		
-//	}
+	/**
+	 * 
+	 * @param attribute
+	 * @param value
+	 * @return
+	 */
+	public PersonNode[] intersect(String attribute, String value)
+	{
+		//
+		PersonNode[] intersection = {null, null};
+		
+		//
+		PersonNode[] selectedFaculty = 
+			select(FACULTY_TABLE, attribute, value);
+		
+		//
+		PersonNode[] selectedAdmin = select(ADMIN_TABLE, attribute, value);
+		
+		//
+		PersonNode currentSelectedFaculty = selectedFaculty[HEAD];
+		PersonNode currentSelectedAdmin = selectedAdmin[HEAD];
+		
+		while (currentSelectedFaculty != null)
+		{
+			while (currentSelectedAdmin != null)
+			{
+				if (currentSelectedFaculty.id.equals(currentSelectedAdmin.id))
+				{
+					if (intersection[HEAD] == null)
+					{
+						intersection[HEAD] = currentSelectedFaculty.clone();
+						intersection[TAIL] = intersection[HEAD];
+					}
+					else
+					{
+						intersection[TAIL].next = 
+							currentSelectedFaculty.clone();
+						intersection[TAIL] = intersection[TAIL].next;
+					}
+				}
+				
+				currentSelectedAdmin = currentSelectedAdmin.next;
+			}
+			
+			currentSelectedFaculty = currentSelectedFaculty.next;
+		}
+		
+		return intersection;
+	}
 //	
 //	/**
 //	 * 
@@ -516,7 +516,7 @@ public class MyDatabase
 	public PersonNode[] getVeteran(int table)
 	{	
 		//
-		PersonNode[] veteranList = {null, null};
+		PersonNode[] veterans = {null, null};
 		
 		PersonNode head = null;
 		switch (table)
@@ -530,9 +530,9 @@ public class MyDatabase
 		}	
 		
 		//
-		veteranList[HEAD] = head.clone();
-		veteranList[TAIL] = veteranList[HEAD];
-		int mostYears = Integer.parseInt(veteranList[HEAD].years);
+		veterans[HEAD] = head.clone();
+		veterans[TAIL] = veterans[HEAD];
+		int mostYears = Integer.parseInt(veterans[HEAD].years);
 		PersonNode currentNode = head.next;
 		int years = 0;
 		while (currentNode != null)
@@ -541,22 +541,22 @@ public class MyDatabase
 			//
 			if (years > mostYears)
 			{
-				veteranList[HEAD] = currentNode.clone();
-				veteranList[TAIL] = veteranList[HEAD];
+				veterans[HEAD] = currentNode.clone();
+				veterans[TAIL] = veterans[HEAD];
 				mostYears = years;
 			}
 			//
 			else if(years == mostYears)
 			{
-				veteranList[TAIL].next = currentNode.clone();
-				veteranList[TAIL] = currentNode.clone();
+				veterans[TAIL].next = currentNode.clone();
+				veterans[TAIL] = currentNode.clone();
 			}
 			
 			currentNode = currentNode.next;
 		}
 		
 		//
-		return veteranList;
+		return veterans;
 	}
 	
 	/**
@@ -567,7 +567,7 @@ public class MyDatabase
 	public PersonNode[] getRookie(int table)
 	{
 		//
-		PersonNode[] rookieList = {null, null};
+		PersonNode[] rookies = {null, null};
 		
 		PersonNode head = null;
 		switch (table)
@@ -581,9 +581,9 @@ public class MyDatabase
 		}	
 		
 		//
-		rookieList[HEAD] = head.clone();
-		rookieList[TAIL] = rookieList[HEAD];
-		int leastYears = Integer.parseInt(rookieList[HEAD].years);
+		rookies[HEAD] = head.clone();
+		rookies[TAIL] = rookies[HEAD];
+		int leastYears = Integer.parseInt(rookies[HEAD].years);
 		PersonNode currentNode = head.next;
 		int years = 0;
 		while (currentNode != null)
@@ -592,22 +592,22 @@ public class MyDatabase
 			//
 			if (years < leastYears)
 			{
-				rookieList[HEAD] = currentNode.clone();
-				rookieList[TAIL] = rookieList[HEAD];
+				rookies[HEAD] = currentNode.clone();
+				rookies[TAIL] = rookies[HEAD];
 				leastYears = years;
 			}
 			//
 			else if(years == leastYears)
 			{
-				rookieList[TAIL].next = currentNode.clone();
-				rookieList[TAIL] = currentNode.clone();
+				rookies[TAIL].next = currentNode.clone();
+				rookies[TAIL] = currentNode.clone();
 			}
 			
 			currentNode = currentNode.next;
 		}
 		
 		//
-		return rookieList;
+		return rookies;
 	}
 	
 	/**
@@ -637,7 +637,7 @@ public class MyDatabase
 			System.out.println(currentNode.name + "    " + currentNode.id + 
 				"    " + currentNode.phone + "    " + currentNode.division + 
 				"    " + currentNode.years + "    " + 
-				getClassifications(currentNode));
+				getClassificationString(currentNode));
 			
 			currentNode = currentNode.next;
 		}
@@ -649,7 +649,7 @@ public class MyDatabase
 	 * @param currentNode
 	 * @return
 	 */
-	String getClassifications(PersonNode currentNode)
+	String getClassificationString(PersonNode currentNode)
 	{
 		//
 		boolean[] classifications = classificationsMap.get(currentNode.id);
