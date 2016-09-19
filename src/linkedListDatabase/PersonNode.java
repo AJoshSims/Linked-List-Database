@@ -1,15 +1,17 @@
 package linkedListDatabase;
 
 /**
- * TODO c
+ * A linked list node which contains data that describes a person -- 
+ * specifically, a school faculty member or school administrator (or a 
+ * combination of the two).
  * 
  * @author Joshua Sims
- *
+ * @version September 19, 2016
  */
 public class PersonNode 
 {
 	/**
-	 * The next person in the list.
+	 * The next person in the list (initially null). 
 	 */
 	PersonNode next = null;
 	
@@ -20,7 +22,7 @@ public class PersonNode
     String name;
 	
 	/**
-	 * Six digit employee ID number.
+	 * Unique, six digit employee ID number.
 	 */
     String id;
     
@@ -40,7 +42,15 @@ public class PersonNode
     String years;
     
     /**
-     * TODO c
+     * Creates a new person according to the personal details passed as 
+     * arguments.
+     * 
+     * @param name - employee name having the form "Last name, First name" 
+     *     (no space after the comma)
+     * @param id - unique, six digit employee ID number
+     * @param phone - ten digit phone number
+     * @param division - academic or administrative division
+     * @param years - years of service
      */
     PersonNode(String name, String id, String phone, String division, 
     	String years)
@@ -53,7 +63,11 @@ public class PersonNode
     }
     
     /**
+     * Creates and returns a new, non-linked person node whose personal 
+     * information is identical to the calling person node's information. 
      * 
+     * @return a new, non-linked person node whose personal 
+     *     information is identical to the calling person node's information
      */
     @Override 
     public PersonNode clone()
