@@ -494,16 +494,39 @@ public class MyDatabase
 		
 		return difference;
 	}
-//	
-//	/**
-//	 * 
-//	 * @return
-//	 */
-//	public PersonNode[] union()
-//	{
-//		
-//	}
-//	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public PersonNode[] union()
+	{
+		PersonNode[] union = {null, null};
+		
+		PersonNode[] newFaculty = {null, null};
+		
+		newFaculty[HEAD] = facultyHeadPtr.clone();
+		newFaculty[TAIL] = newFaculty[HEAD];
+		
+		PersonNode currentNode = facultyHeadPtr.next;
+		while (currentNode != null)
+		{
+			newFaculty[TAIL].next = currentNode.clone();
+			newFaculty[TAIL] = newFaculty[TAIL].next;
+			
+			currentNode = currentNode.next;
+		}
+		
+		PersonNode[] newNotInFaculty = difference(ADMIN_TABLE, FACULTY_TABLE);
+		
+		union[HEAD] = newFaculty[HEAD];
+		union[TAIL] = newFaculty[TAIL];
+		union[TAIL].next = newNotInFaculty[HEAD];
+		union[TAIL] = newNotInFaculty[TAIL];
+		
+		return union;
+	}
+	
 	/**
 	 * 
 	 * @param table

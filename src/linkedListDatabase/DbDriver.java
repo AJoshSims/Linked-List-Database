@@ -74,8 +74,8 @@ public class DbDriver
 		//////////////////////////////////////////
 		System.out.println("TESTING CLASSIFICATION...");
 		
-		System.out.println(database.adminHeadPtr.name + " belongs to " + 
-			database.getClassificationString(database.adminHeadPtr) + " table(s).");
+		System.out.println(database.facultyHeadPtr.name + " belongs to " + 
+			database.getClassificationString(database.facultyHeadPtr) + " table(s).");
 		
 		System.out.println("");
 		//////////////////////////////////////////
@@ -200,17 +200,41 @@ public class DbDriver
 		System.out.println("");
 		//////////////////////////////////////////
 		
+		// union
+		//////////////////////////////////////////
+		System.out.println("TESTING UNION...");
+		
+		PersonNode[] union = database.union();
+		
+		System.out.println("head is " + union[MyDatabase.HEAD].name);
+		System.out.println("tail is " + union[MyDatabase.TAIL].name);
+		
+		System.out.println("entire union list is...");
+		PersonNode currentUnionNode = union[MyDatabase.HEAD];
+		while (currentUnionNode != null)
+		{
+			System.out.println(currentUnionNode.name + "    " + currentUnionNode.id + 
+				"    " + currentUnionNode.phone + "    " + currentUnionNode.division + 
+				"    " + currentUnionNode.years + "    " + 
+				database.getClassificationString(currentUnionNode));
+			
+			currentUnionNode = currentUnionNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+		
 		// remove
 		//////////////////////////////////////////
 		System.out.println("TESTING REMOVE...");
 		
-		System.out.println("admin head is " + database.adminHeadPtr.name);
+		System.out.println("admin head is " + database.facultyHeadPtr.name);
 		System.out.println("admin tail is " + database.adminTailPtr.name);
 		
 		System.out.println("Removing...");
 		database.remove(MyDatabase.ADMIN_TABLE, "482163");
 		
-		System.out.println("new admin head is " + database.adminHeadPtr.name);
+		System.out.println("new admin head is " + database.facultyHeadPtr.name);
 		System.out.println("new admin tail is " + database.adminTailPtr.name);
 		
 		System.out.println("The admin table now looks like...");
