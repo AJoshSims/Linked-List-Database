@@ -176,6 +176,30 @@ public class DbDriver
 		System.out.println("");
 		//////////////////////////////////////////
 		
+		// difference
+		//////////////////////////////////////////
+		System.out.println("TESTING DIFFERENCE...");
+		
+		PersonNode[] difference = database.difference(MyDatabase.FACULTY_TABLE, MyDatabase.ADMIN_TABLE);
+		
+		System.out.println("head is " + difference[MyDatabase.HEAD].name);
+		System.out.println("tail is " + difference[MyDatabase.TAIL].name);
+		
+		System.out.println("entire difference list is...");
+		PersonNode currentDifferenceNode = difference[MyDatabase.HEAD];
+		while (currentDifferenceNode != null)
+		{
+			System.out.println(currentDifferenceNode.name + "    " + currentDifferenceNode.id + 
+				"    " + currentDifferenceNode.phone + "    " + currentDifferenceNode.division + 
+				"    " + currentDifferenceNode.years + "    " + 
+				database.getClassificationString(currentDifferenceNode));
+			
+			currentDifferenceNode = currentDifferenceNode.next;
+		}
+		
+		System.out.println("");
+		//////////////////////////////////////////
+		
 		// remove
 		//////////////////////////////////////////
 		System.out.println("TESTING REMOVE...");

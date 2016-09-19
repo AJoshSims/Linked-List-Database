@@ -378,44 +378,122 @@ public class MyDatabase
 		PersonNode currentSelectedFaculty = selectedFaculty[HEAD];
 		PersonNode currentSelectedAdmin = selectedAdmin[HEAD];
 		
-		while (currentSelectedFaculty != null)
+		if (selectedFaculty[HEAD].id.equals(selectedAdmin[HEAD].id))
 		{
-			while (currentSelectedAdmin != null)
+			intersection[HEAD] = selectedFaculty[HEAD].clone();
+			intersection[TAIL] = intersection[HEAD];
+			
+			selectedAdmin[HEAD] = selectedAdmin[HEAD].next;
+		}
+		
+		while (currentSelectedFaculty.next != null)
+		{
+			while (currentSelectedAdmin.next != null)
 			{
 				if (currentSelectedFaculty.id.equals(currentSelectedAdmin.id))
 				{
 					if (intersection[HEAD] == null)
 					{
-						intersection[HEAD] = currentSelectedFaculty.clone();
+						intersection[HEAD] = 
+							currentSelectedFaculty.next.clone();
 						intersection[TAIL] = intersection[HEAD];
 					}
 					else
 					{
 						intersection[TAIL].next = 
-							currentSelectedFaculty.clone();
+							currentSelectedFaculty.next.clone();
 						intersection[TAIL] = intersection[TAIL].next;
 					}
+					
+					//
+					currentSelectedAdmin.next = currentSelectedAdmin.next.next;
+					break;
 				}
 				
+				//
 				currentSelectedAdmin = currentSelectedAdmin.next;
 			}
 			
+			//
 			currentSelectedFaculty = currentSelectedFaculty.next;
+			currentSelectedAdmin = selectedAdmin[HEAD];
 		}
 		
 		return intersection;
 	}
 //	
-//	/**
-//	 * 
-//	 * @param tableA
-//	 * @param tableB
-//	 * @return
-//	 */
-//	public PersonNode[] difference(int tableA, int tableB)
-//	{
-//		
-//	}
+	/**
+	 * 
+	 * @param tableA
+	 * @param tableB
+	 * @return
+	 */
+	public PersonNode[] difference(int tableA, int tableB)
+	{
+		//
+		PersonNode[] difference = {null, null};
+		
+		//
+		PersonNode tableANodeHead = null;
+		PersonNode tableBNodeHead = null;
+		switch (tableA)
+		{
+			case FACULTY_TABLE:
+				tableANodeHead = facultyHeadPtr;
+				tableBNodeHead = adminHeadPtr;
+				break;
+			case ADMIN_TABLE:
+				tableANodeHead = adminHeadPtr;
+				tableBNodeHead = facultyHeadPtr;
+				break;
+		}
+		
+		//TODO optimize
+		//
+		PersonNode currentTableANode = tableANodeHead;
+		PersonNode currentTableBNode = tableBNodeHead;
+		while (currentTableANode != null)
+		{
+			while (currentTableBNode != null)
+			{
+				//
+				if (currentTableANode.id.equals(currentTableBNode.id))
+				{
+					//
+					break;
+				}
+				//
+				else if (currentTableBNode.next == null)
+				{
+					if (difference[HEAD] == null)
+					{
+						difference[HEAD] = currentTableANode.clone();
+						difference[TAIL] = difference[HEAD];
+					}
+					else
+					{
+						difference[TAIL].next = currentTableANode.clone();
+						difference[TAIL] = difference[TAIL].next;
+					}
+					
+					//
+					break;
+				}
+				//
+				else
+				{
+					//
+					currentTableBNode = currentTableBNode.next;
+				}
+			}
+			
+			//
+			currentTableANode = currentTableANode.next;
+			currentTableBNode = tableBNodeHead;
+		}
+		
+		return difference;
+	}
 //	
 //	/**
 //	 * 
