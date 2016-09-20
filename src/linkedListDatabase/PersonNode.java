@@ -11,7 +11,7 @@ package linkedListDatabase;
 public class PersonNode 
 {
 	/**
-	 * The next person in the list (initially null). 
+	 * The next person node in the linked list.
 	 */
 	PersonNode next = null;
 	
@@ -42,7 +42,7 @@ public class PersonNode
     String years;
     
     /**
-     * Creates a new person according to the personal details passed as 
+     * Creates a new person node according to the personal details passed as 
      * arguments.
      * 
      * @param name - employee name having the form "Last name, First name" 

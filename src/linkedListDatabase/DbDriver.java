@@ -3,7 +3,11 @@ package linkedListDatabase;
 import java.util.Scanner;
 
 /**
- * TODO c
+ * Creates a database containing school faculty and school administrator 
+ * records, prompts the user to specify which database operation they would 
+ * like performed, performs that operation accordingly, and prints the result.
+ * 
+ * <p>The database is a nonpersistent database structured by linked list tables.
  * 
  * @author Joshua Sims
  * @version September 19, 2016
@@ -51,8 +55,9 @@ public class DbDriver
 	private static final String PRINT = "8";
 	
 	/**
-	 * Prompts the user to specify which database operation they would like
-	 * performed and performs that operation accordingly.
+	 * Creates the database, prompts the user to specify which database 
+	 * operation they would like performed, performs that operation accordingly,
+	 * and prints the result.
 	 * 
 	 * @param args - does not take command line arguments
 	 */
@@ -66,12 +71,16 @@ public class DbDriver
 		
 		System.out.println("Enter operation");
 		
-		// Parses the user's input for the sake of performing the specified
+		// Parses the user's input for the sake of performing the specified 
+		// operation according to specified arguments.
 		Scanner userInputStringScanner = null; 
+		
+		// Repeatedly prompts the user and performs specified operations until
+		// user enters "0" instead of specifying an operation.
 		while(!(userInputString = userInputScanner.nextLine().trim())
 			.equals("0"))
 		{
-			//
+			// Parsing user's input and performing the operation accordingly.
 			userInputStringScanner = new Scanner(userInputString);
 			switch (userInputStringScanner.next())
 			{
@@ -120,15 +129,18 @@ public class DbDriver
 	}
 	
 	/**
+	 * Prints the result of a database operation.
 	 * 
+	 * @param database - the database being manipulated
+	 * @param result - the result of the database operation; a linked list table
 	 */
 	private static void printResult(MyDatabase database, PersonNode[] result)
 	{
-		//
+		// The headers for the records' data.
 		System.out.println("NAME        ID        PHONE        DIVISION" +
 		"        YEARS        CLASSIFY");
 		
-		//
+		// Prints each record's data.
 		PersonNode currentNode = result[MyDatabase.HEAD];
 		while (currentNode != null)
 		{

@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * A nonpersistent database structured by linked list tables.
+ * A nonpersistent database structured by linked list tables containing person
+ * nodes.
  * 
  * @author Joshua Sims
  * @version September 19, 2016
@@ -73,7 +74,8 @@ public class MyDatabase
 	private PersonNode facultyTailPtr;
 	
 	/**
-	 * Creates a nonpersistent database structured by linked list tables.
+	 * Creates a nonpersistent database structured by linked list tables 
+	 * containing person nodes.
 	 */
 	public MyDatabase()
 	{
@@ -82,11 +84,10 @@ public class MyDatabase
 	}
 
 	/**
-	 * Builds a linked list table by parsing information from a text file table
-	 * and storing that information into nodes.
+	 * Builds a linked list table containing person nodes.
 	 * 
-	 * @param table - the linked list table to be built 
-	 *     (faculty table or administrator table)
+	 * @param table - the linked list table to be built (faculty table or 
+	 *     administrator table)
 	 */
 	private void buildTable(int table)
 	{
@@ -138,16 +139,16 @@ public class MyDatabase
 		}
 	}
 	
-	// TODO Should nodes be inserted at end of list?
 	/**
-	 * Helps build the tables by 
+	 * Populates the linked list tables with person nodes.
 	 * 
-	 * @param table
-	 * @param name
-	 * @param id
-	 * @param phone
-	 * @param division
-	 * @param years
+	 * @param table - the linked list table to be populated
+     * @param name - employee name having the form "Last name, First name" 
+     *     (no space after the comma)
+     * @param id - unique, six digit employee ID number
+     * @param phone - ten digit phone number
+     * @param division - academic or administrative division
+     * @param years - years of service
 	 */
 	private void insert(int table, String name, String id, String phone, 
 		String division, String years)
@@ -216,15 +217,21 @@ public class MyDatabase
 	}
 	
 	/**
+	 * Returns a {head, tail} array of nodes selected from a 
+	 * specified table according to a specified value of a specified 
+	 * attribute.
 	 * 
-	 * @param table
-	 * @param attribute
-	 * @param value
-	 * @return
+	 * @param table - the linked list table to select from
+	 * @param attribute - the attribute related to the value
+	 * @param value - the value to check for
+	 * 
+	 * @return selected - a {head, tail} array of nodes selected from a 
+	 *     specified table according to a specified value of a specified 
+	 *     attribute.
 	 */
 	PersonNode[] select(int table, String attribute, String value)
 	{
-		//
+		// 
 		PersonNode[] selected = {null, null};
 		
 		//
@@ -368,12 +375,16 @@ public class MyDatabase
 		
 		return selected;
 	}
-//	
+
 	/**
+	 * Examines all of the linked list tables and returns a {head, tail} array 
+	 * of the nodes which have equivalent values of the specified attribute.
 	 * 
-	 * @param attribute
-	 * @param value
-	 * @return
+	 * @param attribute - the attribute related to the value
+	 * @param value - the value to check for
+	 * 
+	 * @return a {head, tail} array of nodes which have equivalent values of a 
+	 * specified attribute.
 	 */
 	public PersonNode[] intersect(String attribute, String value)
 	{
@@ -434,12 +445,19 @@ public class MyDatabase
 		
 		return intersection;
 	}
-//	
+	
 	/**
+	 * Returns a {head, tail} array of nodes which exist in the linked list 
+	 * table specified by tableA but do not exist in the linked list table 
+	 * specified by tableB.
 	 * 
-	 * @param tableA
-	 * @param tableB
-	 * @return
+	 * @param tableA - the code specifying the linked list table in which the 
+	 *     nodes exist
+	 * @param tableB - the code specifying the linked list table in which the 
+	 *     nodes do not exist
+	 * @return a {head, tail} array of nodes which exist in the linked list 
+	 *     table specified by tableA but do not exist in the linked list table 
+	 *     specified by tableB.
 	 */
 	public PersonNode[] difference(int tableA, int tableB)
 	{
@@ -509,8 +527,11 @@ public class MyDatabase
 	}
 	
 	/**
+	 * Returns a {head, tail} array of all of the unique nodes (as defined by 
+	 * their id field) contained in the database tables.
 	 * 
-	 * @return
+	 * @return a {head, tail} array of all of the unique nodes (as defined by 
+	 * their id field) contained in the database tables.
 	 */
 	public PersonNode[] union()
 	{
@@ -541,9 +562,12 @@ public class MyDatabase
 	}
 	
 	/**
+	 * Removes a person node, defined by id, from the specified linked list 
+	 * table.
 	 * 
-	 * @param table
-	 * @param id
+	 * @param table - the linked list table from which to remove the person
+	 *     node
+	 * @param id - the unique identifier of the person node to be removed
 	 */
 	void remove(int table, String id)
 	{
@@ -621,11 +645,14 @@ public class MyDatabase
 			currentNode = currentNode.next;
 		}
 	}
-//	
+
 	/**
+	 * Returns a {head, tail} array of the person nodes which have the largest 
+	 * number of years and belong to the specified table.
 	 * 
-	 * @param table
-	 * @return
+	 * @param table - the linked list table to select from
+	 * @return a {head, tail} array of the person nodes which have the largest 
+	 *     number of years and belong to the specified table.
 	 */
 	public PersonNode[] getVeteran(int table)
 	{	
@@ -674,9 +701,12 @@ public class MyDatabase
 	}
 	
 	/**
+	 * Returns a {head, tail} array of the person nodes which have the smallest 
+	 * number of years and belong to the specified table.
 	 * 
-	 * @param table
-	 * @return
+	 * @param table - the linked list table to select from
+	 * @return a {head, tail} array of the person nodes which have the smallest 
+	 *     number of years and belong to the specified table.
 	 */
 	public PersonNode[] getRookie(int table)
 	{
@@ -725,8 +755,11 @@ public class MyDatabase
 	}
 	
 	/**
+	 * Prints the person nodes from the specified linked list table to the 
+	 * standard output.
 	 * 
-	 * @param table
+	 * @param table - the linked list table containing the person nodes whose
+	 *     information is to be printed
 	 */
 	void printList(int table)
 	{
@@ -757,11 +790,13 @@ public class MyDatabase
 		}
 	}
 	
-	// TODO make private
 	/**
+	 * Returns a string describing which linked list tables contain the 
+	 * specified person node.
 	 * 
-	 * @param currentNode
-	 * @return
+	 * @param currentNode - the specified person node
+	 * @return a string describing which linked list tables contain the 
+	 * specified person node
 	 */
 	String getClassificationString(PersonNode currentNode)
 	{
