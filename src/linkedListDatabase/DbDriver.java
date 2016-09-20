@@ -1,256 +1,143 @@
 package linkedListDatabase;
 
+import java.util.Scanner;
+
 /**
  * TODO c
  * 
  * @author Joshua Sims
- *
+ * @version September 19, 2016
  */
 public class DbDriver 
 {	
 	/**
-	 * 
+	 * The code for the select method.
 	 */
-	private static final int SELECT = 1;
+	private static final String SELECT = "1";
 	
 	/**
-	 *  
+	 * The code for the intersect method.
 	 */
-	private static final int INTERSECT = 2;
+	private static final String INTERSECT = "2";
 	
 	/**
-	 * 
+	 * The code for the difference method.
 	 */
-	private static final int DIFFERENCE = 3;
+	private static final String DIFFERENCE = "3";
 	
 	/**
-	 * 
+	 * The code for the union method.
 	 */
-	private static final int UNION = 4;
+	private static final String UNION = "4";
 	
 	/**
-	 * 
+	 * The code for the remove method.
 	 */
-	private static final int REMOVE = 5;
+	private static final String REMOVE = "5";
 	
 	/**
-	 * 
+	 * The code for the getVeteran method.
 	 */
-	private static final int GET_VETERAN = 6;
+	private static final String GET_VETERAN = "6";
 	
 	/**
-	 * 
+	 * The code for getRookie method.
 	 */
-	private static final int GET_ROOKIE = 7;
+	private static final String GET_ROOKIE = "7";
 	
 	/**
-	 * 
+	 * the code for the printList method.
 	 */
-	private static final int PRINT = 8;
+	private static final String PRINT = "8";
 	
 	/**
+	 * Prompts the user to specify which database operation they would like
+	 * performed and performs that operation accordingly.
 	 * 
-	 * @param args
+	 * @param args - does not take command line arguments
 	 */
 	public static void main(String[] args)
 	{
 		MyDatabase database = new MyDatabase();
 		
-		// TODO testing
+		// Tools for gathering and recording user input.
+		Scanner userInputScanner = new Scanner(System.in);
+		String userInputString = null;
 		
-		// insert
-		//////////////////////////////////////////
-		System.out.println("TESTING INSERT...");
+		System.out.println("Enter operation");
 		
-		System.out.println("faculty table...");
-		database.printList(MyDatabase.FACULTY_TABLE);
-		System.out.println("admin table...");
-		database.printList(MyDatabase.ADMIN_TABLE);
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// classification
-		//////////////////////////////////////////
-		System.out.println("TESTING CLASSIFICATION...");
-		
-		System.out.println(database.facultyHeadPtr.name + " belongs to " + 
-			database.getClassificationString(database.facultyHeadPtr) + " table(s).");
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// getVeteran
-		//////////////////////////////////////////
-		System.out.println("TESTING GETVETERAN...");
-		
-		PersonNode[] veterans = database.getVeteran(MyDatabase.FACULTY_TABLE);
-		
-		System.out.println("head is " + veterans[MyDatabase.HEAD].name);
-		System.out.println("tail is " + veterans[MyDatabase.TAIL].name);
-		
-		System.out.println("entire veteran list is...");
-		PersonNode currentVeteranNode = veterans[MyDatabase.HEAD];
-		while (currentVeteranNode != null)
+		// Parses the user's input for the sake of performing the specified
+		Scanner userInputStringScanner = null; 
+		while(!(userInputString = userInputScanner.nextLine().trim())
+			.equals("0"))
 		{
-			System.out.println(currentVeteranNode.name + "    " + currentVeteranNode.id + 
-				"    " + currentVeteranNode.phone + "    " + currentVeteranNode.division + 
-				"    " + currentVeteranNode.years + "    " + 
-				database.getClassificationString(currentVeteranNode));
+			//
+			userInputStringScanner = new Scanner(userInputString);
+			switch (userInputStringScanner.next())
+			{
+			    case SELECT:
+			    	printResult(database, database
+			    		.select(userInputStringScanner.nextInt(), 
+			    		userInputStringScanner.next(), 
+			    		userInputStringScanner.next()));
+			    	break;
+			    case INTERSECT:
+			    	printResult(database, database
+			    		.intersect(userInputStringScanner.next(), 
+			    		userInputStringScanner.next()));
+			    	break;
+			    case DIFFERENCE:
+			    	printResult(database, database
+			    		.difference(userInputStringScanner.nextInt(), 
+			    		userInputStringScanner.nextInt()));
+			    	break;
+			    case UNION:
+			    	printResult(database, database.union());
+			    	break;
+			    case REMOVE:
+			    	int table = userInputStringScanner.nextInt();
+			    	database.remove(table, userInputStringScanner.next());
+			    	database.printList(table);
+			    	break;
+			    case GET_VETERAN:
+			    	printResult(database, database
+			    		.getVeteran(userInputStringScanner.nextInt()));
+			    	break;
+			    case GET_ROOKIE:
+			    	printResult(database, database
+			    		.getRookie(userInputStringScanner.nextInt()));
+			    	break;
+			    case PRINT:
+			    	database.printList(userInputStringScanner.nextInt());
+			    	break;
+			}
 			
-			currentVeteranNode = currentVeteranNode.next;
+			System.out.println("\nEnter operation");
 		}
 		
-		System.out.println("");
-		//////////////////////////////////////////
+		System.out.println("BYE!");
+		userInputScanner.close();
+	}
+	
+	/**
+	 * 
+	 */
+	private static void printResult(MyDatabase database, PersonNode[] result)
+	{
+		//
+		System.out.println("NAME        ID        PHONE        DIVISION" +
+		"        YEARS        CLASSIFY");
 		
-		// getRookie
-		//////////////////////////////////////////
-		System.out.println("TESTING GETROOKIE...");
-		
-		PersonNode[] rookies = database.getRookie(MyDatabase.ADMIN_TABLE);
-		
-		System.out.println("head is " + rookies[MyDatabase.HEAD].name);
-		System.out.println("tail is " + rookies[MyDatabase.TAIL].name);
-		
-		System.out.println("entire rookie list is...");
-		PersonNode currentRookieNode = rookies[MyDatabase.HEAD];
-		while (currentRookieNode != null)
+		//
+		PersonNode currentNode = result[MyDatabase.HEAD];
+		while (currentNode != null)
 		{
-			System.out.println(currentRookieNode.name + "    " + currentRookieNode.id + 
-				"    " + currentRookieNode.phone + "    " + currentRookieNode.division + 
-				"    " + currentRookieNode.years + "    " + 
-				database.getClassificationString(currentRookieNode));
+			System.out.println(currentNode.name + "    " + currentNode.id + 
+				"    " + currentNode.phone + "    " + currentNode.division + 
+				"    " + currentNode.years + "    " + 
+				database.getClassificationString(currentNode));
 			
-			currentRookieNode = currentRookieNode.next;
+			currentNode = currentNode.next;
 		}
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// select
-		//////////////////////////////////////////
-		System.out.println("TESTING SELECT...");
-		
-		PersonNode[] selected = database.select(MyDatabase.FACULTY_TABLE, "years", "23");
-		
-		System.out.println("head is " + selected[MyDatabase.HEAD].name);
-		System.out.println("tail is " + selected[MyDatabase.TAIL].name);
-		
-		System.out.println("entire selected list is...");
-		PersonNode currentSelectedNode = selected[MyDatabase.HEAD];
-		while (currentSelectedNode != null)
-		{
-			System.out.println(currentSelectedNode.name + "    " + currentSelectedNode.id + 
-				"    " + currentSelectedNode.phone + "    " + currentSelectedNode.division + 
-				"    " + currentSelectedNode.years + "    " + 
-				database.getClassificationString(currentSelectedNode));
-			
-			currentSelectedNode = currentSelectedNode.next;
-		}
-		
-		System.out.println("");
-		//////////////////////////////////////////
-
-		// intersect
-		//////////////////////////////////////////
-		System.out.println("TESTING INTERSECT...");
-		
-		PersonNode[] intersection = database.intersect("years", "23");
-		
-		System.out.println("head is " + intersection[MyDatabase.HEAD].name);
-		System.out.println("tail is " + intersection[MyDatabase.TAIL].name);
-		
-		System.out.println("entire Intersection list is...");
-		PersonNode currentIntersectionNode = intersection[MyDatabase.HEAD];
-		while (currentIntersectionNode != null)
-		{
-			System.out.println(currentIntersectionNode.name + "    " + currentIntersectionNode.id + 
-				"    " + currentIntersectionNode.phone + "    " + currentIntersectionNode.division + 
-				"    " + currentIntersectionNode.years + "    " + 
-				database.getClassificationString(currentIntersectionNode));
-			
-			currentIntersectionNode = currentIntersectionNode.next;
-		}
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// difference
-		//////////////////////////////////////////
-		System.out.println("TESTING DIFFERENCE...");
-		
-		PersonNode[] difference = database.difference(MyDatabase.FACULTY_TABLE, MyDatabase.ADMIN_TABLE);
-		
-		System.out.println("head is " + difference[MyDatabase.HEAD].name);
-		System.out.println("tail is " + difference[MyDatabase.TAIL].name);
-		
-		System.out.println("entire difference list is...");
-		PersonNode currentDifferenceNode = difference[MyDatabase.HEAD];
-		while (currentDifferenceNode != null)
-		{
-			System.out.println(currentDifferenceNode.name + "    " + currentDifferenceNode.id + 
-				"    " + currentDifferenceNode.phone + "    " + currentDifferenceNode.division + 
-				"    " + currentDifferenceNode.years + "    " + 
-				database.getClassificationString(currentDifferenceNode));
-			
-			currentDifferenceNode = currentDifferenceNode.next;
-		}
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// union
-		//////////////////////////////////////////
-		System.out.println("TESTING UNION...");
-		
-		PersonNode[] union = database.union();
-		
-		System.out.println("head is " + union[MyDatabase.HEAD].name);
-		System.out.println("tail is " + union[MyDatabase.TAIL].name);
-		
-		System.out.println("entire union list is...");
-		PersonNode currentUnionNode = union[MyDatabase.HEAD];
-		while (currentUnionNode != null)
-		{
-			System.out.println(currentUnionNode.name + "    " + currentUnionNode.id + 
-				"    " + currentUnionNode.phone + "    " + currentUnionNode.division + 
-				"    " + currentUnionNode.years + "    " + 
-				database.getClassificationString(currentUnionNode));
-			
-			currentUnionNode = currentUnionNode.next;
-		}
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// remove
-		//////////////////////////////////////////
-		System.out.println("TESTING REMOVE...");
-		
-		System.out.println("admin head is " + database.facultyHeadPtr.name);
-		System.out.println("admin tail is " + database.adminTailPtr.name);
-		
-		System.out.println("Removing...");
-		database.remove(MyDatabase.ADMIN_TABLE, "482163");
-		
-		System.out.println("new admin head is " + database.facultyHeadPtr.name);
-		System.out.println("new admin tail is " + database.adminTailPtr.name);
-		
-		System.out.println("The admin table now looks like...");
-		database.printList(MyDatabase.ADMIN_TABLE);
-		
-		System.out.println("");
-		//////////////////////////////////////////
-		
-		// classification
-		//////////////////////////////////////////
-		System.out.println("TESTING CLASSIFICATION...");
-		
-		System.out.println(database.facultyHeadPtr.name + " belongs to " + 
-			database.getClassificationString(database.facultyHeadPtr) + " table(s).");
-		
-		System.out.println("");
-		//////////////////////////////////////////
 	}
 }

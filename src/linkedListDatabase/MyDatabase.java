@@ -6,78 +6,74 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
+ * A nonpersistent database structured by linked list tables.
  * 
  * @author Joshua Sims
- *
+ * @version September 19, 2016
  */
 public class MyDatabase 
 {
-	// TODO complete (can I use this?)
 	/**
-	 * 
+	 * Stores records which describe the classification(s) (the containing 
+	 * tables) of each person.
 	 */
 	private HashMap<String, boolean[]> classificationsMap = 
 		new HashMap<String, boolean[]>();
-	
-	/**
-	 * 
-	 */
-	static final int NUM_OF_TABLES = 2;
 		
 	/**
-	 * 
+	 * The code for the faculty table.
 	 */
 	static final int FACULTY_TABLE = 1;
 	
 	/**
-	 * 
+	 * The index of the faculty table classification in a 
+	 * {faculty classification, administrator classification} array.
 	 */
 	static final int FACULTY_CLASSIFICATION = 0;
 	
 	/**
-	 * 
+	 * The code for the administrator table.
 	 */
 	static final int ADMIN_TABLE = 2;
 	
 	/**
-	 * 
+	 * The index of the administrator table classification in a 
+	 * {faculty classification, administrator classification} array.
 	 */
 	static final int ADMIN_CLASSIFICATION = 1;
 	
-	// TODO make sure these are private
 	/**
-	 * 
+	 * The index of the head node in a {head node, tail node} array.
 	 */
 	static final int HEAD = 0;
 	
 	/**
-	 * 
+	 * The index of the tail node in a {head node, tail node} array.
 	 */
 	static final int TAIL = 1;
 	
-	// TODO make sure these are private
 	/**
 	 * Points to front of administrative list.
 	 */
-	PersonNode adminHeadPtr;
+	private PersonNode adminHeadPtr;
 	
 	/**
 	 * Points to end of administrative list.
 	 */
-	PersonNode adminTailPtr;
+	private PersonNode adminTailPtr;
 	
 	/**
 	 * Points to front of faculty list.
 	 */
-	PersonNode facultyHeadPtr;
+	private PersonNode facultyHeadPtr;
 	
 	/**
 	 * Points to end of faculty list.
 	 */
-	PersonNode facultyTailPtr;
+	private PersonNode facultyTailPtr;
 	
 	/**
-	 * 
+	 * Creates a nonpersistent database structured by linked list tables.
 	 */
 	public MyDatabase()
 	{
@@ -86,8 +82,11 @@ public class MyDatabase
 	}
 
 	/**
+	 * Builds a linked list table by parsing information from a text file table
+	 * and storing that information into nodes.
 	 * 
-	 * @param textTable
+	 * @param table - the linked list table to be built 
+	 *     (faculty table or administrator table)
 	 */
 	private void buildTable(int table)
 	{
@@ -141,6 +140,7 @@ public class MyDatabase
 	
 	// TODO Should nodes be inserted at end of list?
 	/**
+	 * Helps build the tables by 
 	 * 
 	 * @param table
 	 * @param name
@@ -174,10 +174,17 @@ public class MyDatabase
 				
 				//
 				classifications[FACULTY_CLASSIFICATION] = true;
-				// TODO do I NEED to put back in?
 				classificationsMap.put(id, classifications);
-				newNode.next = facultyHeadPtr;
-				facultyHeadPtr = newNode;
+				if (facultyHeadPtr == null)
+				{
+					facultyHeadPtr = newNode;
+				}
+				
+				else
+				{
+				    facultyTailPtr.next = newNode;
+				    facultyTailPtr = facultyTailPtr.next;
+				}
 				break;
 			case ADMIN_TABLE:
 				//
@@ -194,10 +201,16 @@ public class MyDatabase
 				
 				//
 				classifications[ADMIN_CLASSIFICATION] = true;
-				// TODO do I NEED to put back in?
 				classificationsMap.put(id, classifications);
-				newNode.next = adminHeadPtr;
-				adminHeadPtr = newNode;
+				if (adminHeadPtr == null)
+				{
+					adminHeadPtr = newNode;
+				}
+				else
+				{
+				    adminTailPtr.next = newNode;
+				    adminTailPtr = adminTailPtr.next;
+				}
 				break;
 		}
 	}
